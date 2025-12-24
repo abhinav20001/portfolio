@@ -173,17 +173,112 @@ header {
     color: var(--white-02);
     font-size: 26px;
     margin-left: 130px;
+    display: inline-flex;
+    align-items: center;
 }
 
 .navbrand,
 .navbrand-icon {
     font-family: proxima_novaextrabold, monospace;
 }
+.employer-logos {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 8px;
+}
+.employer-logo {
+    display: inline-block;
+    vertical-align: middle;
+    opacity: 0.95;
+    height: 40px; /* doubled visual height */
+    width: auto;
+    object-fit: contain;
+}
+.employer-logo.apple { height: 40px; }
+.employer-logo.walmart { height: 40px; }
+
+/* Reduce prominence on very small screens */
+@media (max-width: 520px) {
+    .navbrand { font-size: 20px; margin-left: 20px; }
+    .employer-logos { gap: 12px; }
+    .employer-logo { height: 32px; }
+}
+
+/* Tooltip for employer logos (accessible on hover and keyboard focus) */
+.employer-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+}
+.employer-wrap:focus {
+    outline: none;
+}
+.employer-wrap::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    background: rgba(0,0,0,0.85);
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.12s ease, transform 0.12s ease;
+    z-index: 1200;
+}
+.employer-wrap::before {
+    content: "";
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    background: rgba(0,0,0,0.85);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.12s ease, transform 0.12s ease;
+    z-index: 1199;
+}
+.employer-wrap:hover::after,
+.employer-wrap:focus::after,
+.employer-wrap:active::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+.employer-wrap:hover::before,
+.employer-wrap:focus::before,
+.employer-wrap:active::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) rotate(45deg);
+}
+
+@media (max-width: 420px) {
+    .employer-wrap::after { font-size: 11px; bottom: calc(100% + 8px); }
+    .employer-wrap::before { bottom: calc(100% + 2px); }
+}
 
 .navbrand-icon {
     color: var(--bg-color);
     font-size: 25px;
     font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.navbrand-name {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
 }
 
 .navbrand:after {
